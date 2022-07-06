@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Village extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'id','district_id', 'name'
+    ];
 }

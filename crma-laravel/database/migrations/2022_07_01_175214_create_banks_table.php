@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('banks', function (Blueprint $table) {
+            $table->id();
             $table->string('code');
-            $table->primary('code');
             $table->string('name');
             $table->timestamps();
         });

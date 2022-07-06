@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_card_number');
             $table->foreign('id_card_number')->references('id_card_number')->on('crews');
-            $table->string('bank_code');
-            $table->foreign('bank_code')->references('code')->on('banks');
+            $table->unsignedBigInteger('bank_code');
+            $table->foreign('bank_code')->references('id')->on('banks');
             $table->unsignedInteger('account_number');
             $table->string("owner_name");
             $table->timestamps();

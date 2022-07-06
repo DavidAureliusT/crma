@@ -2,6 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
+use App\Models\BloodType;
+use App\Models\Certivicate;
+use App\Models\District;
+use App\Models\Gender;
+use App\Models\Licence;
+use App\Models\Province;
+use App\Models\Regency;
+use App\Models\Religion;
+use App\Models\Village;
 use Illuminate\Http\Request;
 
 class CrewController extends Controller
@@ -23,7 +33,18 @@ class CrewController extends Controller
      */
     public function create()
     {
-        //
+        return view("crews.create", [
+            'genders'       => Gender::get(),
+            'licences'      => Licence::get(),
+            'certificates'  => Certivicate::get(),
+            'religions'     => Religion::get(),
+            'bloodTypes'    => BloodType::get(),
+            'banks'         => Bank::get(),
+            'provinces'     => Province::get(),
+            'regencies'     => Regency::get(),
+            'districts'     => District::get(),
+            'villages'       => Village::get(),
+        ]);
     }
 
     /**
@@ -34,7 +55,7 @@ class CrewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**
