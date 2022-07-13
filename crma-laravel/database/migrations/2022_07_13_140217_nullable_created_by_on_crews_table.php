@@ -13,7 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::rename("certivicates", "certificates");
+        Schema::table("crews", function(Blueprint $table) {
+            $table->unsignedBigInteger("created_by")->nullable()->change();
+            $table->dropForeign("crews_created_by_foreign");
+            $table->foreign('created_by')->references("id")->on("users")->nullOnDelete();
+        });
     }
 
     /**
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::rename("certificates", "certivicates");
+        //
     }
 };

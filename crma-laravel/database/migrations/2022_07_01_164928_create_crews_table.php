@@ -21,20 +21,20 @@ return new class extends Migration
             $table->foreignId('gender_id')->constrained('genders');
             $table->date("birthdate");
             $table->string('birthplace');
-            $table->integer('phone_number');
+            $table->string('phone_number');
             $table->foreignId('province_id')->constrained('provinces');
             $table->foreignId('regency_id')->constrained('regencies');
             $table->foreignId('district_id')->constrained('districts');
             $table->foreignId('village_id')->constrained('villages');
-            $table->integer('postal_code');
+            $table->string('postal_code');
             $table->string('home_address');
             $table->foreignId('religion_id')->constrained('religions');
             $table->foreignId('blood_type_id')->constrained('blood_types');
-            $table->integer('family_card_number');
-            $table->integer('npwp_card_number');
-            $table->integer('bpjstk_number');
-            $table->integer('bpjskes_number');
-            $table->foreignId('created_by')->constrained('users');
+            $table->string('family_card_number');
+            $table->string('npwp_card_number');
+            $table->string('bpjstk_number');
+            $table->string('bpjskes_number');
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }

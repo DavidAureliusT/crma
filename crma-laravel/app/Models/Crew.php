@@ -26,4 +26,42 @@ class Crew extends Model
      * @var bool
      */
     public $incrementing = false;
+
+    /**
+     * RELATION:
+     */
+    public function medical_records()
+    {
+        return $this->hasMany(MedicalRecord::class, 'id_card_number');
+    }
+    
+    public function licences() 
+    {
+        return $this->hasMany(CrewLicence::class, 'id_card_number');
+    }
+
+    public function certificates()
+    {
+        return $this->hasMany(CrewCertificate::class, 'id_card_number');
+    }
+
+    public function passport()
+    {
+        return $this->hasOne(Passport::class, 'id_card_number');
+    }
+
+    public function bank_account()
+    {
+        return $this->hasOne(CrewBankAccount::class, 'id_card_number');
+    }
+
+    public function blood_type()
+    {
+        return $this->belongsTo(BloodType::class);
+    }
+
+    public function family_members()
+    {
+        return $this->hasMany(CrewFamilyMember::class, 'id_card_number');
+    }
 }

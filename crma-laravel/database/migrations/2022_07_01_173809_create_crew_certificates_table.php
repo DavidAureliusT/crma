@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('crew_certivicates', function (Blueprint $table) {
+        Schema::create('crew_certificates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_card_number');
             $table->foreign('id_card_number')->references('id_card_number')->on('crews');
-            $table->foreignId('certivicate_id')->constrained('certivicates');
+            $table->foreignId('certificate_id')->constrained('certificates');
             $table->date('release_at');
             $table->date('expired_at');
             $table->timestamps();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crew_certivicates');
+        Schema::dropIfExists('crew_certificates');
     }
 };

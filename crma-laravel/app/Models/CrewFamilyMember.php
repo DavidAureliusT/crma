@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class CrewFamilyMember extends Model
 {
     use HasFactory;
+    /**
+     * RELATIONS:
+     */
+    public function owner()
+    {
+        return $this->belongsTo(Crew::class);
+    }
 }

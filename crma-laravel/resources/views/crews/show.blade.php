@@ -15,61 +15,39 @@
             <div class="col-md-9">
                 <h3 class="mt-3">Profile</h3>
                 <div class="form-group">
-                    <label for="staticName">Fullname</label>
-                    <input class="form-control" type="text" value="David Aurelius">
+                    <label for="id_card_number">ID Card Number</label>
+                    <input name="id_card_number" id="id_card_number" class="form-control" type="text" value="{{ $crew->id_card_number }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="staticGender">Gender</label>
-                    <select class="custom-select">
-                        <option selected value="1">Man</option>
-                        <option value="2">Women</option>
-                    </select>
-                </div>
-                <label for="inputBirthday"><b>Date of Birth</b></label>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="inputDay">Day</label>
-                        <select id="inputDay" class="form-control">
-                            @for ($i = 1; $i<=31; $i++)
-                                <option>{{ $i }}</option>
-                            @endfor
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputMonth">Month</label>
-                        <select id="inputMonth" class="form-control">
-                            @for ($i = 1; $i<=12; $i++)
-                                <option>{{ $i }}</option>
-                            @endfor
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputMonth">Year</label>
-                        <select id="inputMonth" class="form-control">
-                            @for ($i = 17; $i<=58; $i++)
-                                <option>{{ date("Y") - $i }}</option>
-                            @endfor
-                        </select>
-                    </div>
+                    <label for="fullname">Fullname</label>
+                    <input name="fullname" id="fullname" class="form-control" type="text" value="{{ $crew->fullname }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="staticBirthplace">Birthplace</label>
-                    <input class="form-control" type="text" value="Denpasar, Bali">
-                    <small id="staticBirthplace" class="form-text text-muted">Base on Crew ID Card (KTP)</small>
+                    <label for="gender">Gender</label>
+                    <input name="gender" id="gender" class="form-control" type="text" value="{{ $crew->gender_id }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="phoneNumber">Phone Number</label>
-                    <input class="form-control" type="text" value="081234567891">
+                    <label for="birthdate">Birthdate</label>
+                    <input name="birthdate" id="birthdate" type="date" class="form-control" value="{{ $crew->birthdate }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="birthplace">Birthplace</label>
+                    <input name="birhtplace" id="birthplace" class="form-control" type="text" value="{{ $crew->birthplace }}" readonly>
+                    <small class="form-text text-muted">*Base on Crew ID Card (KTP)</small>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number</label>
+                    <input name="phone_number" id="phone_number" class="form-control" type="text" value="{{ $crew->phone_number }}" readonly>
                 </div>
                 <h3 class="mt-3">Medical Records</h3>
                 <div class="row">
-                    @for ($i = 0; $i<=5; $i++)
+                    @foreach ($crew->medical_records as $medical_record)
                     <div class="col">
-                        <h5>MCU</h5>
-                        <p>Create:</p>
-                        <p>Expr.:</p>
+                        <h5>{{ $medical_record->type }}</h5>
+                        <p>Create:{{ $medical_record->created_at }}</p>
+                        <p>Expr.:{{ $medical_record->expired_at }}</p>
                     </div>
-                    @endfor
+                    @endforeach
                 </div>
                 <h3 class="mt-3">Licences & Certificates</h3>
                 <div class="table-responsive">
@@ -83,14 +61,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($i = 0; $i < 5; $i++)
+                            @foreach ($crew->licences as $licence)
                             <tr>
-                                <th scope="col">ANT-1</th>
-                                <th scope="col">ANT I Operasional</th>
-                                <th scope="col">1/1/2022</th>
-                                <th scope="col">1/1/2024</th>
+                                <th scope="col">{{ $licence->licence_id }}</th>
+                                <th scope="col">{{ $licence->licence_id }}</th>
+                                <th scope="col">{{ $licence->created_at }}</th>
+                                <th scope="col">{{ $licence->expired_at }}</th>
                             </tr>
-                            @endfor
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -105,136 +83,105 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($i = 0; $i < 5; $i++)
+                            @foreach ($crew->certificates as $certificate)
                             <tr>
-                                <th scope="col">17-CCMHB</th>
-                                <th scope="col">Crowd Crisis Management &Human Behaviour</th>
-                                <th scope="col">1/1/2022</th>
-                                <th scope="col">1/1/2024</th>
+                                <th scope="col">{{ $certificate->certificate_id }}</th>
+                                <th scope="col">{{ $certificate->certificate_id }}</th>
+                                <th scope="col">{{ $certificate->created_at }}</th>
+                                <th scope="col">{{ $certificate->expired_at }}</th>
                             </tr>
-                            @endfor
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="row">
                     <div class="col-md">
                         <h3 class="mt-3">Passport</h3>
-                        {{--  --}}
                         <div class="form-group">
-                            <label for="passportNumber">Passport Number</label>
-                            <input class="form-control" type="text" value="1234567">
+                            <label for="passport_number">Passport Number</label>
+                            <input name="passport[number]" id="passport_number" class="form-control" type="text" value="{{ $crew->passport->number }}" readonly>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md">
-                                <label for="passportReleaseDate">Release Date</label>
-                                <input type="date" name="passportReleaseDate">
+                                <label for="passport_release_at">Release Date</label>
+                                <input name="passport[release_at]" id="passport_release_at" class="form-control" type="date" name="passportReleaseDate" value="{{ $crew->passport->release_at }}" readonly>
                             </div>
                             <div class="form-group col-md">
-                                <label for="passportExpirationDate">Expiration Date</label>
-                                <input type="date" name="passportExpirationDate">
+                                <label for="passport_expired_at">Expiration Date</label>
+                                <input name="passport[expired_at]" id="passport_expired_at" class="form-control" type="date" name="passportExpirationDate" value="{{ $crew->passport->expired_at }}" readonly>
                             </div>
                         </div>
                     </div>
                     <div class="col-md">
                         <h3 class="mt-3">Bank Account</h3>
-                        {{--  --}}
                         <div class="form-group">
-                            <label for="Bank">Bank</label>
-                            <input class="form-control" type="text" value="BCA">
+                            <label for="bank_bank_code">Bank</label>
+                            <input name="bank[bank_code]" id="bank_bank_code" class="form-control" type="text" value="{{ $crew->bank_account->bank_code }}" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="AccountNumber">Account Number</label>
-                            <input class="form-control" type="text" value="0123456789">
+                            <label for="bank_account_number">Account Number</label>
+                            <input name="bank[account_number]" id="bank_account_number" class="form-control" type="text" value="{{ $crew->bank_account->account_number }}" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="OwnerName">Owner Name</label>
-                            <input class="form-control" type="text" value="DAVID AURELIUS TANDJUNG">
+                            <label for="bank_owner_name">Owner Name</label>
+                            <input name="bank[owner_name]" id="bank_owner_name" class="form-control" type="text" value="{{ $crew->bank_account->owner_name }}" readonly>
                         </div>
                     </div>
                 </div>
                 <h3 class="mt-3">Others</h3>
-                {{--  --}}
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="inputProvince">Province</label>
-                        <select name="province" id="province" class="form-control">
-                            @for ($i = 1; $i<=5; $i++)
-                                <option>{{ $i }}</option>
-                            @endfor
-                        </select>
+                        <label for="province">Province</label>
+                        <input type="text" name="province" id="province" class="form-control" value="{{ $crew->province_id }}" readonly>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputRegency">Regency</label>
-                        <select name="regency" id="regency" class="form-control">
-                            @for ($i = 1; $i<=5; $i++)
-                                <option>{{ $i }}</option>
-                            @endfor
-                        </select>
+                        <label for="regency">Regency</label>
+                        <input type="text" name="regency" id="regency" class="form-control" value="{{ $crew->regency_id }}" readonly>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputDistrict">District</label>
-                        <select name="district" id="district" class="form-control">
-                            @for ($i = 1; $i<=5; $i++)
-                                <option>{{ $i }}</option>
-                            @endfor
-                        </select>
+                        <label for="district">District</label>
+                        <input type="text" name="district" id="district" class="form-control" value="{{ $crew->district_id }}" readonly>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputVillage">Village</label>
-                        <select name="village" id="village" class="form-control">
-                            @for ($i = 1; $i<=5; $i++)
-                                <option>{{ $i }}</option>
-                            @endfor
-                        </select>
+                        <label for="village">Village</label>
+                        <input type="text" name="village" id="village" class="form-control" value="{{ $crew->village_id }}" readonly>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputPostalCode">Postal Code</label>
-                        <select name="postalCode" id="postalCode" class="form-control">
-                            @for ($i = 1; $i<=5; $i++)
-                                <option>{{ $i }}</option>
-                            @endfor
-                        </select>
+                        <label for="postal_code">Postal Code</label>
+                        <input type="text" name="postal_code" id="postal_code" class="form-control" value="{{ $crew->postal_code }}" readonly>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="homeAddress">Home Address</label>
-                    <input class="form-control" type="text" placeholder="">
+                    <label for="home_address">Home Address</label>
+                    <input type="text" name="home_address" id="home_address" class="form-control" value="{{ $crew->home_address }}" readonly>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputReligion">Religion</label>
-                        <select name="religion" id="religion" class="form-control">
-                            @for ($i = 1; $i<=5; $i++)
-                                <option>{{ $i }}</option>
-                            @endfor
-                        </select>
+                        <label for="religion">Religion</label>
+                        <input type="text" name="religion" id="religion" class="form-control" value="{{ $crew->religion_id }}" readonly>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputBloodType">Blood Type</label>
-                        <select name="bloodType" id="bloodType" class="form-control">
-                            @for ($i = 1; $i<=5; $i++)
-                                <option>{{ $i }}</option>
-                            @endfor
-                        </select>
+                        <label for="blood_type">Blood Type</label>
+                        <input type="text" name="blood_type" id="blood_type" class="form-control" value="{{ $crew->blood_type->name }}" readonly>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="familyCardNumber">Family Card Number</label>
-                    <input class="form-control" type="text" value="0123456789123456">
+                    <label for="family_card_number">Family Card Number</label>
+                    <input type="text" name="family_card_number" id="family_card_number" class="form-control" value="{{ $crew->family_card_number }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="NPWP">NPWP Number</label>
-                    <input class="form-control" type="text" value="0123456789123456">
+                    <label for="npwp_card_number">NPWP Card Number</label>
+                    <input type="text" name="npwp_card_number" id="npwp_card_number" class="form-control" value="{{ $crew->npwp_card_number }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="BPJSTK">BPJS-TK Number</label>
-                    <input class="form-control" type="text" value="012345678912">
+                    <label for="bpjstk_number">BPJS-TK Number</label>
+                    <input type="text" name="bpjstk_number" id="bpjstk_number" class="form-control" value="{{ $crew->bpjstk_number }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="BPJSKES">BPJS-Kes Number</label>
-                    <input class="form-control" type="text" value="0123456789123">
+                    <label for="bpjskes_number">BPJS-Kes Number</label>
+                    <input type="text" name="bpjskes_number" id="bpjskes_number" class="form-control" value="{{ $crew->bpjskes_number }}" readonly>
                 </div>
                 <h3 class="mt-3">Family</h3>
                 <div class="table-responsive">
@@ -248,13 +195,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($i = 0; $i < 3; $i++)
+                            @foreach ($crew->family_members as $family_member)
                             <tr>
-                                <th scope="col">member</th>
-                                <th scope="col">random name</th>
-                                <th scope="col">081234567891</th>
-                                <th scope="col">actions</th>
+                                <th scope="col">{{ $family_member->role }}</th>
+                                <th scope="col">{{ $family_member->name }}</th>
+                                <th scope="col">{{ $family_member->phone_number }}</th>
+                                <th scope="col"></th>
                             </tr>
+                            @endforeach
+                            @for ($i = 0; $i < 3; $i++)
                             @endfor
                         </tbody>
                     </table>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('id_card_number')->references('id_card_number')->on('crews');
             $table->string('role');
             $table->string('name');
-            $table->unsignedInteger('phone_number');
+            $table->string('phone_number');
             $table->timestamps();
         });
     }

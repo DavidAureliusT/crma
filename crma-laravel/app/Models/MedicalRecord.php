@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class MedicalRecord extends Model
 {
     use HasFactory;
+
+    /**
+     * RELATIONS:
+     */
+    public function owner()
+    {
+        return $this->belongsTo(Crew::class);
+    }
 }

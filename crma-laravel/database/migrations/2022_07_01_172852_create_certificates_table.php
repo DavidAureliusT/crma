@@ -14,13 +14,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('certivicates', function (Blueprint $table) {
+        Schema::create('certificates', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
         });
 
-        DB::table('certivicates')->insert([
+        DB::table('certificates')->insert([
             ['name' => 'Basic Safety Training (BST)'],
             ['name' => 'ARPA Simulator (AS)'],
             ['name' => 'Radar Simulator (RS)'],
@@ -58,6 +58,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('certivicates');
+        Schema::dropIfExists('certificates');
     }
 };

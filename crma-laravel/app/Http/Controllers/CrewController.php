@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Bank;
 use App\Models\BloodType;
-use App\Models\Certivicate;
+use App\Models\Certificate;
 use App\Models\Crew;
 use App\Models\CrewBankAccount;
+use App\Models\CrewCertificate;
 use App\Models\CrewFamilyMember;
 use App\Models\CrewLicence;
 use App\Models\District;
@@ -29,7 +30,9 @@ class CrewController extends Controller
      */
     public function index()
     {
-        return view("crews.index");
+        return view("crews.index", [
+            "crews" => Crew::get()
+        ]);
     }
 
     /**
@@ -41,15 +44,9 @@ class CrewController extends Controller
     {
         return view("crews.create", [
             'genders'       => Gender::get(),
-            // 'licences'      => Licence::get(),
-            // 'certificates'  => Certivicate::get(),
             'religions'     => Religion::get(),
             'bloodTypes'    => BloodType::get(),
             'banks'         => Bank::get(),
-            // 'provinces'     => Province::get(),
-            // 'regencies'     => Regency::get(),
-            // 'districts'     => District::get(),
-            // 'villages'      => Village::get(),
         ]);
     }
 
@@ -80,7 +77,6 @@ class CrewController extends Controller
             "npwp_number"       => $request->npwp_number,
             "bpjstk_number"     => $request->bpjstk_number,
             "bpjskes_number"    => $request->bpjskes_number,
-            "created_by"        => 0
         ]);
 
         $medical_types = ["mcu", "pcr", "cv1", "cv2", "cv3"];
@@ -103,7 +99,7 @@ class CrewController extends Controller
         }
 
         foreach($request->certificates as $crew_certificate) {
-            CrewLicence::create([
+            CrewCertificate::create([
                 "id_card_number"    => $request->id_card_number,
                 "certificate_id"    => $crew_certificate["certificate_id"],
                 "release_at"        => $crew_certificate["certificate_id"]["release_at"],
@@ -134,7 +130,9 @@ class CrewController extends Controller
             ]);
         }
 
-        return $request;
+        return view("crews.show", [
+            "crew" => $crew
+        ]);
     }
 
     /**
@@ -145,7 +143,12 @@ class CrewController extends Controller
      */
     public function show($id)
     {
-        return view("crews.show");
+        return view("crews.show", [
+            "crew"  => Crew::find($id)
+        ]);
+        // $crew = Crew::find($id);
+
+        // return $crew->family_members;
     }
 
     /**
