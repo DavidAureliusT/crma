@@ -14,4 +14,13 @@ class Regency extends Model
     protected $fillable = [
         'id','province_id', 'name'
     ];
+
+    /**
+     * RELATION
+     */
+
+    public function crews()
+    {
+        $this->hasMany(Crew::class);
+    }
 }

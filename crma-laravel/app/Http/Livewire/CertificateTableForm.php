@@ -7,6 +7,7 @@ use Livewire\Component;
 
 class CertificateTableForm extends Component
 {
+    public $crew;
     public $certificate_count = 1;
 
     public function increaseCertificate()
@@ -21,8 +22,16 @@ class CertificateTableForm extends Component
 
     public function render()
     {
-        return view('livewire.certificate-table-form', [
-            'certificates'  => Certificate::get(),
-        ]);
+        if(isset($crew)) {
+            return view('livewire.certificate-table-form', [
+                'certificates'  => Certificate::get(),
+                'mode'          => "edit"
+            ]);
+        } else {
+            return view('livewire.certificate-table-form', [
+                'certificates'  => Certificate::get(),
+                'mode'          => "create"
+            ]);
+        }
     }
 }

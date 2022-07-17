@@ -31,7 +31,7 @@ class CrewController extends Controller
     public function index()
     {
         return view("crews.index", [
-            "crews" => Crew::get()
+            "crews" => Crew::all()
         ]);
     }
 
@@ -74,7 +74,7 @@ class CrewController extends Controller
             "religion_id"       => $request->religion_id,
             "blood_type_id"     => $request->blood_type_id,
             "family_card_number"=> $request->family_card_number,
-            "npwp_number"       => $request->npwp_number,
+            "npwp_card_number"  => $request->npwp_card_number,
             "bpjstk_number"     => $request->bpjstk_number,
             "bpjskes_number"    => $request->bpjskes_number,
         ]);
@@ -93,8 +93,8 @@ class CrewController extends Controller
             CrewLicence::create([
                 "id_card_number"    => $request->id_card_number,
                 "licence_id"        => $crew_licence["licence_id"],
-                "release_at"        => $crew_licence["licence_id"]["release_at"],
-                "expired_at"        => $crew_licence["licence_id"]["expired_at"]
+                "release_at"        => $crew_licence["release_at"],
+                "expired_at"        => $crew_licence["expired_at"]
             ]);
         }
 
@@ -102,8 +102,8 @@ class CrewController extends Controller
             CrewCertificate::create([
                 "id_card_number"    => $request->id_card_number,
                 "certificate_id"    => $crew_certificate["certificate_id"],
-                "release_at"        => $crew_certificate["certificate_id"]["release_at"],
-                "expired_at"        => $crew_certificate["certificate_id"]["expired_at"]
+                "release_at"        => $crew_certificate["release_at"],
+                "expired_at"        => $crew_certificate["expired_at"]
             ]);
         }
 
@@ -130,9 +130,7 @@ class CrewController extends Controller
             ]);
         }
 
-        return view("crews.show", [
-            "crew" => $crew
-        ]);
+        return redirect()->route('crews.show', [$crew->id_card_number]);
     }
 
     /**
@@ -146,9 +144,6 @@ class CrewController extends Controller
         return view("crews.show", [
             "crew"  => Crew::find($id)
         ]);
-        // $crew = Crew::find($id);
-
-        // return $crew->family_members;
     }
 
     /**
@@ -159,7 +154,13 @@ class CrewController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view("crews.edit", [
+            "crew"          => Crew::find($id),
+            'genders'       => Gender::get(),
+            'religions'     => Religion::get(),
+            'bloodTypes'    => BloodType::get(),
+            'banks'         => Bank::get(),
+        ]);
     }
 
     /**

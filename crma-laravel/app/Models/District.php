@@ -14,4 +14,13 @@ class District extends Model
     protected $fillable = [
         'id','regency_id', 'name'
     ];
+
+    /**
+     * RELATION
+     */
+
+    public function crews()
+    {
+        $this->hasMany(Crew::class);
+    }
 }

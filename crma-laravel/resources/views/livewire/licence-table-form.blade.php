@@ -27,29 +27,55 @@
                 </tr>
             </thead>
             <tbody>
-                @for ($i = 0; $i < $licence_count; $i++)
-                <tr>
-                    <th scope="col">
-                        <div class="form-group">
-                            <select name="licences[{{ $i }}][licence_id]" class="form-control" required>
-                                @foreach ($licences as $licence)
-                                <option value="{{ $licence->id }}">{{ $licence->name }}</option>
-                                @endforeach
-                            </select>    
-                        </div>
-                    </th>
-                    <th scope="col">
-                        <div class="form-group">
-                            <input name="licences[{{ $i }}][release_at]" class="form-control" type="date" required>
-                        </div>
-                    </th>
-                    <th scope="col">
-                        <div class="form-group">
-                            <input name="licences[{{ $i }}][expired_at]" class="form-control" type="date" required>
-                        </div>
-                    </th>
-                </tr> 
-                @endfor
+                @if ($mode == "edit")
+                    @foreach ($crew->licences as $crew_licence )
+                    <tr>
+                        <th scope="col">
+                            <div class="form-group">
+                                <select name="licences[{{ $loop->index }}][licence_id]" class="form-control" required>
+                                    @foreach ($licences as $licence)
+                                    <option value="{{ $licence->id }}" @if($licence->id == $crew_licence->licence_id) selected @endif>{{ $licence->name }}</option>
+                                    @endforeach
+                                </select>    
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="form-group">
+                                <input name="licences[{{ $loop->index }}][release_at]" class="form-control" type="date" value="{{ $crew_licence->release_at }}" required>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="form-group">
+                                <input name="licences[{{ $loop->index }}][expired_at]" class="form-control" type="date" value="{{ $crew_licence->expired_at }}" required>
+                            </div>
+                        </th>
+                    </tr> 
+                    @endforeach
+                @elseif ($mode == "create")
+                    @for ($i = 0; $i < $licence_count; $i++)
+                    <tr>
+                        <th scope="col">
+                            <div class="form-group">
+                                <select name="licences[{{ $i }}][licence_id]" class="form-control" required>
+                                    @foreach ($licences as $licence)
+                                    <option value="{{ $licence->id }}">{{ $licence->name }}</option>
+                                    @endforeach
+                                </select>    
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="form-group">
+                                <input name="licences[{{ $i }}][release_at]" class="form-control" type="date" value="2022-06-04" required>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="form-group">
+                                <input name="licences[{{ $i }}][expired_at]" class="form-control" type="date" value="2022-12-04" required>
+                            </div>
+                        </th>
+                    </tr> 
+                    @endfor
+                @endif
             </tbody>
         </table>
     </div>

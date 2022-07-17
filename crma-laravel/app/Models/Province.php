@@ -14,4 +14,13 @@ class Province extends Model
     protected $fillable = [
         'id', 'name'
     ];
+
+    /**
+     * RELATION
+     */
+
+    public function crews()
+    {
+        $this->hasMany(Crew::class);
+    }
 }

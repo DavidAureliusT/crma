@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Gender extends Model
 {
     use HasFactory;
+
+    /**
+     * RELATIONS:
+     */
+    public function crews()
+    {
+        return $this->hasMany(Crew::class);
+    }
 }

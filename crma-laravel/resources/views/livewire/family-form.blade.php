@@ -1,7 +1,7 @@
 <div>
     <div class="row mt-3">
         <div class="col-md-9">
-            <h3>Family</h3>
+            <h3>Family</h3><span>{{ $mode }}</span>
         </div>
         <div class="col-md-3">
             <div class="row">
@@ -27,25 +27,46 @@
                 </tr>
             </thead>
             <tbody>
-                @for ($i = 0; $i < $family_count; $i++)
-                <tr>
-                    <th scope="col">
-                        <select name="crew_family_members[{{ $i }}][role]" class="form-control" required>
-                            <option value="">-</option>
-                            <option value="Wife">Wife</option>
-                            <option value="Husband">Husband</option>
-                            <option value="Son">Son</option>
-                            <option value="Daughter">Daughter</option>
-                        </select>
-                    </th>
-                    <th scope="col">
-                        <input name="crew_family_members[{{ $i }}][name]" class="form-control" type="text" placeholder="family member's fullname" required>
-                    </th>
-                    <th scope="col">
-                        <input name="crew_family_members[{{ $i }}][phone_number]" class="form-control" type="text" placeholder="family member's phone number" required>
-                    </th>
-                </tr>
-                @endfor
+                @if ($mode == "edit")
+                    @foreach ($crew->family_members as $crew_family_member)
+                    <tr>
+                        <th scope="col">
+                            <select name="crew_family_members[{{ $loop->index }}][role]" class="form-control" required>
+                                <option value="">-</option>
+                                @foreach ($family_roles as $role)
+                                <option value="{{ $role }}" @if($crew_family_member->role == $role) selected @endif>{{ $role }}</option>
+                                @endforeach
+                            </select>
+                        </th>
+                        <th scope="col">
+                            <input name="crew_family_members[{{ $loop->index }}][name]" class="form-control" type="text" placeholder="family member's fullname" value="{{ $crew_family_member->name }}" required>
+                        </th>
+                        <th scope="col">
+                            <input name="crew_family_members[{{ $loop->index }}][phone_number]" class="form-control" type="text" placeholder="family member's phone number" value="{{ $crew_family_member->phone_number }}" required>
+                        </th>
+                    </tr>
+                    @endforeach
+                @elseif($mode == "create")
+                    @for ($i = 0; $i < $family_count; $i++)
+                    <tr>
+                        <th scope="col">
+                            <select name="crew_family_members[{{ $i }}][role]" class="form-control" required>
+                                <option value="">-</option>
+                                <option value="Wife">Wife</option>
+                                <option value="Husband">Husband</option>
+                                <option value="Son">Son</option>
+                                <option value="Daughter">Daughter</option>
+                            </select>
+                        </th>
+                        <th scope="col">
+                            <input name="crew_family_members[{{ $i }}][name]" class="form-control" type="text" placeholder="family member's fullname" required>
+                        </th>
+                        <th scope="col">
+                            <input name="crew_family_members[{{ $i }}][phone_number]" class="form-control" type="text" placeholder="family member's phone number" required>
+                        </th>
+                    </tr>
+                    @endfor
+                @endif
             </tbody>
         </table>
     </div>

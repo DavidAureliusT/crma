@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Licence extends Model
 {
     use HasFactory;
+
+    /**
+     * RELATION
+     */
+
+    public function crew_licences()
+    {
+        $this->hasMany(CrewLicence::class);
+    }
 }

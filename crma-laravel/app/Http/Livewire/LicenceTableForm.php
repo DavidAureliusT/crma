@@ -7,6 +7,7 @@ use Livewire\Component;
 
 class LicenceTableForm extends Component
 {
+    public $crew;
     public $licence_count = 1;
 
     public function increaseLicence()
@@ -20,8 +21,17 @@ class LicenceTableForm extends Component
 
     public function render()
     {
-        return view('livewire.licence-table-form',[
-            'licences'  => Licence::get()
-        ]);
+        if(isset($this->crew)) {
+            $this->licence_count += $this->crew->licences->count();
+            return view('livewire.licence-table-form', [
+                'licences'      => Licence::get(),
+                'mode'          => "edit"
+            ]);
+        } else {
+            return view('livewire.licence-table-form', [
+                'licences'      => Licence::get(),
+                'mode'          => "create"
+            ]);
+        }
     }
 }
