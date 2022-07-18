@@ -52,6 +52,29 @@
                             </th>
                         </tr> 
                         @endforeach
+                        @for ($i = 0; $i < $certificate_count - $crew->certificates->count(); $i++)
+                        <tr>
+                            <th scope="col">
+                                <div class="form-group">
+                                    <select name="certificates[{{ $i + $crew->certificates->count() }}][certificate_id]" class="form-control" required>
+                                        @foreach ($certificates as $certificate)
+                                        <option value="{{ $certificate->id }}">{{ $certificate->name }}</option>
+                                        @endforeach
+                                    </select>    
+                                </div>
+                            </th>
+                            <th scope="col">
+                                <div class="form-group">
+                                    <input name="certificates[{{ $i + $crew->certificates->count() }}][release_at]" class="form-control" type="date" required>
+                                </div>
+                            </th>
+                            <th scope="col">
+                                <div class="form-group">
+                                    <input name="certificates[{{ $i + $crew->certificates->count() }}][expired_at]" class="form-control" type="date" required>
+                                </div>
+                            </th>
+                        </tr>    
+                        @endfor
                     @elseif ($mode == "create")
                         @for ($i = 0; $i < $certificate_count; $i++)
                         <tr>

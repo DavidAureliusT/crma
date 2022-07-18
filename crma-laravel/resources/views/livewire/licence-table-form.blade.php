@@ -51,6 +51,29 @@
                         </th>
                     </tr> 
                     @endforeach
+                    @for ($i = 0; $i < $licence_count - $crew->licences->count(); $i++)
+                    <tr>
+                        <th scope="col">
+                            <div class="form-group">
+                                <select name="licences[{{ $i + $crew->licences->count() }}][licence_id]" class="form-control" required>
+                                    @foreach ($licences as $licence)
+                                    <option value="{{ $licence->id }}">{{ $licence->name }}</option>
+                                    @endforeach
+                                </select>    
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="form-group">
+                                <input name="licences[{{ $i + $crew->licences->count() }}][release_at]" class="form-control" type="date" required>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="form-group">
+                                <input name="licences[{{ $i + $crew->licences->count() }}][expired_at]" class="form-control" type="date" required>
+                            </div>
+                        </th>
+                    </tr>     
+                    @endfor
                 @elseif ($mode == "create")
                     @for ($i = 0; $i < $licence_count; $i++)
                     <tr>

@@ -4,7 +4,13 @@
 <div class="container">
     <h1>Crew's Detail</h1>
     <a class="btn btn-outline-primary btn-sm" href="/crews/{{ $crew->id_card_number }}/edit" role="button">Edit</a>
-    <a class="btn btn-outline-danger btn-sm" href="/crews/{{ $crew->id_card_number }}/edit" role="button">Delete</a>
+    <form method="POST" action="/crews/{{ $crew->id_card_number }}">
+        {{ csrf_field() }}
+        {{ method_field('DELETE') }}
+        <div class="form-group">
+            <input type="submit" class="btn btn-outline-danger btn-sm" value="Delete">
+        </div>
+    </form>
     <div class="row mb-3">
         <div class="col-md-9">
             <h3 class="mt-3">Profile</h3>

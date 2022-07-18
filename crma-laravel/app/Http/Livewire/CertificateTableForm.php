@@ -14,15 +14,21 @@ class CertificateTableForm extends Component
     {
         $this->certificate_count ++;
     }
-    
     public function decreaseCertificate()
     {
         $this->certificate_count --;
     }
 
+    public function mount()
+    {
+        if(isset($this->crew)) {
+            $this->certificate_count += $this->crew->certificates->count()-1;
+        }
+    }
+
     public function render()
     {
-        if(isset($crew)) {
+        if(isset($this->crew)) {
             return view('livewire.certificate-table-form', [
                 'certificates'  => Certificate::get(),
                 'mode'          => "edit"

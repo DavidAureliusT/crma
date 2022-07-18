@@ -19,10 +19,16 @@ class LicenceTableForm extends Component
         $this->licence_count --;
     }
 
+    public function mount()
+    {
+        if(isset($this->crew)) {
+            $this->licence_count += $this->crew->licences->count()-1;
+        }
+    }
+
     public function render()
     {
         if(isset($this->crew)) {
-            $this->licence_count += $this->crew->licences->count();
             return view('livewire.licence-table-form', [
                 'licences'      => Licence::get(),
                 'mode'          => "edit"

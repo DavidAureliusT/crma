@@ -46,16 +46,33 @@
                         </th>
                     </tr>
                     @endforeach
+                    @for ($i = 0; $i < $family_count - $crew->family_members->count(); $i++)
+                    <tr>
+                        <th scope="col">
+                            <select name="crew_family_members[{{ $i + $crew->family_members->count() }}][role]" class="form-control" required>
+                                <option value="">-</option>
+                                @foreach ($family_roles as $role)
+                                <option value="{{ $role }}" >{{ $role }}</option>
+                                @endforeach
+                            </select>
+                        </th>
+                        <th scope="col">
+                            <input name="crew_family_members[{{ $i + $crew->family_members->count() }}][name]" class="form-control" type="text" placeholder="family member's fullname" required>
+                        </th>
+                        <th scope="col">
+                            <input name="crew_family_members[{{ $i + $crew->family_members->count() }}][phone_number]" class="form-control" type="text" placeholder="family member's phone number" required>
+                        </th>
+                    </tr>
+                    @endfor
                 @elseif($mode == "create")
                     @for ($i = 0; $i < $family_count; $i++)
                     <tr>
                         <th scope="col">
                             <select name="crew_family_members[{{ $i }}][role]" class="form-control" required>
                                 <option value="">-</option>
-                                <option value="Wife">Wife</option>
-                                <option value="Husband">Husband</option>
-                                <option value="Son">Son</option>
-                                <option value="Daughter">Daughter</option>
+                                @foreach ($family_roles as $role)
+                                <option value="{{ $role }}" >{{ $role }}</option>
+                                @endforeach
                             </select>
                         </th>
                         <th scope="col">

@@ -19,10 +19,16 @@ class FamilyForm extends Component
         $this->family_count ++;
     }
 
+    public function mount()
+    {
+        if(isset($this->crew)) {
+            $this->family_count += $this->crew->family_members->count()-1;
+        }
+    }
+
     public function render()
     {
         if(isset($this->crew)){
-            $this->family_count += $this->crew->family_members->count()-1;
             return view('livewire.family-form',[
                 'mode'  => 'edit'
             ]);

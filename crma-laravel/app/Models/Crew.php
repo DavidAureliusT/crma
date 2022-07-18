@@ -102,4 +102,25 @@ class Crew extends Model
     {
         return $this->hasMany(CrewFamilyMember::class, 'id_card_number');
     }
+
+    public static function boot() {
+        parent::boot();
+        self::deleting(function($crew) { // before delete() method call this
+             $crew->medical_records()->each(function($medical_record) {
+                $medical_record->delete(); // <-- direct deletion
+             });
+             $crew->licences()->each(function($licence) {
+                $licence->delete(); // <-- direct deletion
+             });
+             $crew->certificates()->each(function($certificate) {
+                $certificate->delete(); // <-- direct deletion
+             });
+             $crew->family_members()->each(function($family_member) {
+                $family_member->delete(); // <-- direct deletion
+             });
+             $crew->passport->delete();
+             $crew->bank_account->delete();
+             // do the rest of the cleanup...
+        });
+    }
 }

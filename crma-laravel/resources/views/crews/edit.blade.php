@@ -3,8 +3,9 @@
 @section("Content")
 <div class="container">
     <h1>Edit Detail Crew</h1>
-    <form action="/crews/{{ $crew->id_card_number }}" method="PUT">
+    <form action="/crews/{{ $crew->id_card_number }}" method="POST">
         @csrf
+        {{ method_field('PUT') }}
         <div class="row mt-3 mb-5">
             <div class="col-md-9">
                 <h3>Profile</h3>
@@ -37,16 +38,16 @@
                 @foreach ($crew->medical_records as $medical_record)
                 <h5>{{ $medical_record->type }}</h5>
                 <div class="form-group row">
-                    <label for="medical_records_mcu_release_at" class="col-sm-3 col-form-label">Release Date:</label>
+                    <label for="medical_records_{{ $medical_record->type }}_release_at" class="col-sm-3 col-form-label">Release Date:</label>
                     <div class="col-sm-9">
-                        <input name="medical_records[mcu][release_at]" id="medical_records_mcu_release_at" type="date" class="form-control" value="{{ $medical_record->release_at }}">
+                        <input name="medical_records[{{ $medical_record->type }}][release_at]" id="medical_records_{{ $medical_record->type }}_release_at" type="date" class="form-control" value="{{ $medical_record->release_at }}">
                         <small class="form-text text-muted">*Optional</small>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="medical_records_mcu_expired_at" class="col-sm-3 col-form-label">Expiration Date.:</label>
+                    <label for="medical_records_{{ $medical_record->type }}_expired_at" class="col-sm-3 col-form-label">Expiration Date.:</label>
                     <div class="col-sm-9">
-                        <input name="medical_records[mcu][expired_at]" id="medical_records_mcu_expired_at" type="date" class="form-control" value="{{ $medical_record->expired_at }}">
+                        <input name="medical_records[{{ $medical_record->type }}][expired_at]" id="medical_records_{{ $medical_record->type }}_expired_at" type="date" class="form-control" value="{{ $medical_record->expired_at }}">
                         <small class="form-text text-muted">*Optional</small>
                     </div>
                 </div>
@@ -128,7 +129,7 @@
                     <input name="bpjskes_number" id="bpjskes_number" class="form-control" type="text" value="{{ $crew->bpjskes_number }}">
                 </div>
                 <livewire:family-form :crew="$crew"/> 
-                <button type="submit" class="btn btn-success btn-block">Save Crew Record</button>
+                <button type="submit" class="btn btn-success btn-block">Update Crew Record</button>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
