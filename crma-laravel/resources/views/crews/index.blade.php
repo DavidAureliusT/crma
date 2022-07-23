@@ -1,7 +1,7 @@
-@extends("layouts.main")
+@extends("layouts.master")
 
 @section("Content")
-<div class="container">
+<div class="containe-fluid">
     <h1>Crews</h1>
     <p>List of Crew in ENL</p>
     <a class="btn btn-outline-primary btn-sm" href="/crews/create" role="button">New Crew</a>
